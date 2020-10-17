@@ -13,8 +13,10 @@ declare(strict_types=1);
 
 namespace League\CommonMark\Tests\Unit\Extension\CommonMark\Parser\Block;
 
-use League\CommonMark\Configuration\Configuration;
+use League\CommonMark\Configuration\ConfigurationInterface;
+use League\CommonMark\Environment\Environment;
 use League\CommonMark\Exception\InvalidConfigurationException;
+use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\ListBlock;
 use League\CommonMark\Extension\CommonMark\Node\Block\ListItem;
 use League\CommonMark\Extension\CommonMark\Parser\Block\ListBlockStartParser;
@@ -159,7 +161,7 @@ final class ListBlockStartParserTest extends TestCase
         $cursor = new Cursor('^ Foo');
 
         $parser = new ListBlockStartParser();
-        $parser->setConfiguration(new Configuration(['commonmark' => ['unordered_list_markers' => ['^']]]));
+        $parser->setConfiguration($this->createConfiguration(['commonmark' => ['unordered_list_markers' => ['^']]]));
         $start = $parser->tryStart($cursor, $this->createMock(MarkdownParserStateInterface::class));
 
         $this->assertNotNull($start);
@@ -186,7 +188,7 @@ final class ListBlockStartParserTest extends TestCase
         $cursor = new Cursor('+ Foo');
 
         $parser = new ListBlockStartParser();
-        $parser->setConfiguration(new Configuration(['commonmark' => ['unordered_list_markers' => ['-', '*']]]));
+        $parser->setConfiguration($this->createConfiguration(['commonmark' => ['unordered_list_markers' => ['-', '*']]]));
         $start = $parser->tryStart($cursor, $this->createMock(MarkdownParserStateInterface::class));
 
         $this->assertNull($start);
@@ -200,7 +202,19 @@ final class ListBlockStartParserTest extends TestCase
         $cursor = new Cursor('- Foo');
 
         $parser = new ListBlockStartParser();
-        $parser->setConfiguration(new Configuration(['commonmark' => ['unordered_list_markers' => '-']]));
+        $parser->setConfiguration($this->createConfiguration(['commonmark' => ['unordered_list_markers' => ['-']]]));
         $parser->tryStart($cursor, $this->createMock(MarkdownParserStateInterface::class));
+    }
+
+    /**
+     * @param array<string, mixed> $values
+     */
+    private function createConfiguration(array $values = []): ConfigurationInterface
+    {
+        $config = Environment::createDefaultConfiguration();
+        (new CommonMarkCoreExtension())->configureSchema($config);
+        $config->merge($values);
+
+        return $config->reader();
     }
 }
