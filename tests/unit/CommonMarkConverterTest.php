@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace League\CommonMark\Tests\Unit;
 
 use League\CommonMark\CommonMarkConverter;
-use League\CommonMark\Environment\ConfigurableEnvironmentInterface;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Exception\UnexpectedEncodingException;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
@@ -52,7 +51,7 @@ class CommonMarkConverterTest extends TestCase
     public function testEnvironmentAndConfigConstructor(): void
     {
         $config          = ['foo' => 'bar'];
-        $mockEnvironment = $this->createMock(ConfigurableEnvironmentInterface::class);
+        $mockEnvironment = $this->createMock(EnvironmentBuilderInterface::class);
         $mockEnvironment->expects($this->once())
             ->method('mergeConfig')
             ->with($config);

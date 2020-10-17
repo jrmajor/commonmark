@@ -20,9 +20,9 @@ use League\CommonMark\Parser\Inline\InlineParserInterface;
 use League\CommonMark\Renderer\NodeRendererInterface;
 
 /**
- * Interface for an Environment which can be configured with config settings, parsers, processors, and renderers
+ * Interface for building the Environment with any extensions, parsers, listeners, etc. that it may need
  */
-interface ConfigurableEnvironmentInterface extends EnvironmentInterface
+interface EnvironmentBuilderInterface extends EnvironmentInterface
 {
     /**
      * @param array<string, mixed> $config
@@ -37,7 +37,7 @@ interface ConfigurableEnvironmentInterface extends EnvironmentInterface
     /**
      * Registers the given extension with the Environment
      */
-    public function addExtension(ExtensionInterface $extension): ConfigurableEnvironmentInterface;
+    public function addExtension(ExtensionInterface $extension): EnvironmentBuilderInterface;
 
     /**
      * Registers the given block start parser with the Environment
@@ -47,7 +47,7 @@ interface ConfigurableEnvironmentInterface extends EnvironmentInterface
      *
      * @return self
      */
-    public function addBlockStartParser(BlockStartParserInterface $parser, int $priority = 0): ConfigurableEnvironmentInterface;
+    public function addBlockStartParser(BlockStartParserInterface $parser, int $priority = 0): EnvironmentBuilderInterface;
 
     /**
      * Registers the given inline parser with the Environment
@@ -57,14 +57,14 @@ interface ConfigurableEnvironmentInterface extends EnvironmentInterface
      *
      * @return self
      */
-    public function addInlineParser(InlineParserInterface $parser, int $priority = 0): ConfigurableEnvironmentInterface;
+    public function addInlineParser(InlineParserInterface $parser, int $priority = 0): EnvironmentBuilderInterface;
 
     /**
      * Registers the given delimiter processor with the Environment
      *
      * @param DelimiterProcessorInterface $processor Delimiter processors instance
      */
-    public function addDelimiterProcessor(DelimiterProcessorInterface $processor): ConfigurableEnvironmentInterface;
+    public function addDelimiterProcessor(DelimiterProcessorInterface $processor): EnvironmentBuilderInterface;
 
     /**
      * Registers the given node renderer with the Environment
@@ -75,7 +75,7 @@ interface ConfigurableEnvironmentInterface extends EnvironmentInterface
      *
      * @return self
      */
-    public function addRenderer(string $nodeClass, NodeRendererInterface $renderer, int $priority = 0): ConfigurableEnvironmentInterface;
+    public function addRenderer(string $nodeClass, NodeRendererInterface $renderer, int $priority = 0): EnvironmentBuilderInterface;
 
     /**
      * Registers the given event listener
@@ -86,5 +86,5 @@ interface ConfigurableEnvironmentInterface extends EnvironmentInterface
      *
      * @return self
      */
-    public function addEventListener(string $eventClass, callable $listener, int $priority = 0): ConfigurableEnvironmentInterface;
+    public function addEventListener(string $eventClass, callable $listener, int $priority = 0): EnvironmentBuilderInterface;
 }

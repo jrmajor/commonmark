@@ -16,8 +16,8 @@ declare(strict_types=1);
 
 namespace League\CommonMark;
 
-use League\CommonMark\Environment\ConfigurableEnvironmentInterface;
 use League\CommonMark\Environment\Environment;
+use League\CommonMark\Environment\EnvironmentBuilderInterface;
 use League\CommonMark\Environment\EnvironmentInterface;
 use League\CommonMark\Output\RenderedContentInterface;
 use League\CommonMark\Parser\MarkdownParser;
@@ -50,7 +50,7 @@ class CommonMarkConverter implements MarkdownConverterInterface
             $environment = Environment::createCommonMarkEnvironment();
         }
 
-        if ($environment instanceof ConfigurableEnvironmentInterface) {
+        if ($environment instanceof EnvironmentBuilderInterface) {
             $environment->mergeConfig($config);
         }
 
