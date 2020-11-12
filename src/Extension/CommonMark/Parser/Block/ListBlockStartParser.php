@@ -15,6 +15,7 @@ namespace League\CommonMark\Extension\CommonMark\Parser\Block;
 
 use League\CommonMark\Configuration\ConfigurationAwareInterface;
 use League\CommonMark\Configuration\ConfigurationInterface;
+use League\CommonMark\Exception\InvalidConfigurationException;
 use League\CommonMark\Extension\CommonMark\Node\Block\ListBlock;
 use League\CommonMark\Extension\CommonMark\Node\Block\ListData;
 use League\CommonMark\Parser\Block\BlockStart;
@@ -146,10 +147,10 @@ final class ListBlockStartParser implements BlockStartParserInterface, Configura
             return $this->listMarkerRegex = '/^[*+-]/';
         }
 
-        $markers = $this->config->get('unordered_list_markers', ['*', '+', '-']);
+        $markers = $this->config->get('commonmark/unordered_list_markers', ['*', '+', '-']);
 
         if (! \is_array($markers)) {
-            throw new \RuntimeException('Invalid configuration option "unordered_list_markers": value must be an array of strings');
+            throw InvalidConfigurationException::forConfigOption('commonmark/unordered_list_markers', $markers, 'value must be an array of strings');
         }
 
         return $this->listMarkerRegex = '/^[' . \preg_quote(\implode('', $markers), '/') . ']/';
