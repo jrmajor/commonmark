@@ -56,7 +56,7 @@ EOT;
 
         $environment = Environment::createCommonMarkEnvironment();
         $environment->addExtension(new MentionExtension());
-        $environment->setConfig([
+        $environment->mergeConfig([
             'mentions' => [
                 'github_handle' => [
                     'prefix'    => '@',
@@ -84,7 +84,7 @@ EOT;
 
         $environment = Environment::createCommonMarkEnvironment();
         $environment->addExtension(new MentionExtension());
-        $environment->setConfig([
+        $environment->mergeConfig([
             'mentions' => [
                 'github_handle' => [
                     'prefix'    => '@',
@@ -116,7 +116,7 @@ EOT;
 
         $environment = Environment::createCommonMarkEnvironment();
         $environment->addExtension(new MentionExtension());
-        $environment->setConfig([
+        $environment->mergeConfig([
             'mentions' => [
                 'github_handle' => [
                     'prefix'    => '@',
@@ -144,7 +144,7 @@ EOT;
 
         $environment = Environment::createCommonMarkEnvironment();
         $environment->addExtension(new MentionExtension());
-        $environment->setConfig([
+        $environment->mergeConfig([
             'mentions' => [
                 'github_handle' => [
                     'prefix'    => '@',
@@ -165,7 +165,7 @@ EOT;
 
         $environment = Environment::createCommonMarkEnvironment();
         $environment->addExtension(new MentionExtension());
-        $environment->setConfig([
+        $environment->mergeConfig([
             'mentions' => [
                 'github_handle' => [
                     'symbol'    => '@',
@@ -186,7 +186,7 @@ EOT;
 
         $environment = Environment::createCommonMarkEnvironment();
         $environment->addExtension(new MentionExtension());
-        $environment->setConfig([
+        $environment->mergeConfig([
             'mentions' => [
                 'github_handle' => [
                     'prefix'    => '@',

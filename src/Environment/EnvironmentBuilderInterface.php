@@ -30,11 +30,6 @@ interface EnvironmentBuilderInterface extends EnvironmentInterface
     public function mergeConfig(array $config = []): void;
 
     /**
-     * @param array<string, mixed> $config
-     */
-    public function setConfig(array $config = []): void;
-
-    /**
      * Registers the given extension with the Environment
      */
     public function addExtension(ExtensionInterface $extension): EnvironmentBuilderInterface;
